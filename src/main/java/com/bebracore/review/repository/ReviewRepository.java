@@ -11,4 +11,6 @@ import com.bebracore.review.model.Review;
 public interface ReviewRepository extends MongoRepository<Review, String>, CustomReviewRepository {
 	List<Review> findByProductId(String productId);
 
+	List<Review> findByUserId(String userId);
+
 }

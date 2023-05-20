@@ -12,6 +12,8 @@ public interface ReviewService {
 
 	List<Review> getByProductId(String productId);
 
+	List<Review> getByUserId(String userId);
+
 	Review like(String reviewId) throws ReviewNotFoundException;
 
 	Review dislike(String reviewId) throws ReviewNotFoundException;

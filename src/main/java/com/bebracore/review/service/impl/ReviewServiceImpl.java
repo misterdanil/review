@@ -41,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
 					"Exception occurred while raing product with id: " + request.getProduct().getId()
 							+ ". The product has already rated by user " + request.getUser().getId());
 		}
-		
+
 		review = reviewRepository.save(review);
 		product.getReviewIds().add(review.getId());
 
@@ -55,6 +55,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> getByProductId(String productId) {
 		return reviewRepository.findByProductId(productId);
+	}
+
+	@Override
+	public List<Review> getByUserId(String userId) {
+		return reviewRepository.findByUserId(userId);
 	}
 
 	@Override

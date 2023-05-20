@@ -113,4 +113,15 @@ public class ReviewController extends AbstractController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
+
+	@GetMapping("/user/reviews")
+	public ResponseEntity<List<ReviewDto>> getReviews() {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		List<Review> reviews = reviewService.getByUserId(userId);
+
+		List<ReviewDto> dtos = dtoGenerator.createDtos(reviews);
+
+		return ResponseEntity.ok(dtos);
+	}
 }
