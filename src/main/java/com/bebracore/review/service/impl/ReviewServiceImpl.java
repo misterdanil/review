@@ -37,9 +37,12 @@ public class ReviewServiceImpl implements ReviewService {
 		Product product = request.getProduct();
 
 		if (product.containsRating(request.getUser().getId())) {
-			throw new RatedAlreadyException(
-					"Exception occurred while raing product with id: " + request.getProduct().getId()
-							+ ". The product has already rated by user " + request.getUser().getId());
+			review = reviewRepository.findByUserIdAndProductId(request.getUser().getId(), product.getId());
+			review.setTitle(request.getTitle());
+			review.setText(request.getText());
+//			throw new RatedAlreadyException(
+//					"Exception occurred while raing product with id: " + request.getProduct().getId()
+//							+ ". The product has already rated by user " + request.getUser().getId());
 		}
 
 		review = reviewRepository.save(review);
@@ -60,6 +63,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> getByUserId(String userId) {
 		return reviewRepository.findByUserId(userId);
+	}
+
+	@Override
+	public Review getReview(String productId, String userId) {
+		return reviewRepository.findByUserIdAndProductId(userId, productId);
 	}
 
 	@Override

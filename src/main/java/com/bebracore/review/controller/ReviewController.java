@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -82,6 +83,16 @@ public class ReviewController extends AbstractController {
 		} catch (URISyntaxException e) {
 			return ResponseEntity.status(500).build();
 		}
+	}
+
+	@GetMapping("/product/smartphone/{productId}/user/{userId}/review")
+	public ResponseEntity<ReviewDto> getReview(@PathVariable String productId, @PathVariable String userId) {
+		Review review = reviewService.getReview(productId, userId);
+		if(review == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(dtoGenerator.createDto(review));
 	}
 
 	@GetMapping("/product/smartphone/{id}/reviews")

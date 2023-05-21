@@ -13,6 +13,8 @@ public interface ReviewService {
 	List<Review> getByProductId(String productId);
 
 	List<Review> getByUserId(String userId);
+	
+	Review getReview(String productId, String userId);
 
 	Review like(String reviewId) throws ReviewNotFoundException;
 
